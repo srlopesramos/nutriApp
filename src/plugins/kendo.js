@@ -16,5 +16,5 @@ export default {
     app.component('KCard', Card)
     app.component('KCardBody', CardBody)
     app.component('KCardTitle', CardTitle)
-  }
-} 
+  },
+}
