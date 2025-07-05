@@ -1,6 +1,9 @@
-import './assets/main.css'
+import './assets/scss/main.scss'
 
 import { createApp } from 'vue'
 import App from './App.vue'
+import KendoUI from './plugins/kendo.js'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+app.use(KendoUI)
+app.mount('#app')
