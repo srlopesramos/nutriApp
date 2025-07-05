@@ -4,7 +4,7 @@ import { Grid, GridColumn } from '@progress/kendo-vue-data-tools'
 import { Card, CardBody, CardTitle } from '@progress/kendo-vue-layout'
 
 // Import Kendo UI CSS
-import '@progress/kendo-theme-default/dist/all.css'
+import '@progress/kendo-theme-default/dist/default-main.css'
 
 export default {
   install(app) {
