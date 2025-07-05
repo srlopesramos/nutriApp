@@ -15,4 +15,27 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  test: {
+    environment: 'jsdom',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      exclude: [
+        'node_modules/',
+        'src/main.js',
+        'src/router/index.js',
+        '**/*.d.ts',
+        '**/*.config.js',
+        '**/*.config.ts'
+      ],
+      thresholds: {
+        global: {
+          branches: 60,
+          functions: 60,
+          lines: 60,
+          statements: 60
+        }
+      }
+    }
+  }
 })
