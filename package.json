@@ -9,10 +9,23 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@progress/kendo-drawing": "^1.21.2",
+    "@progress/kendo-licensing": "^1.6.0",
+    "@progress/kendo-vue-buttons": "^6.4.1",
+    "@progress/kendo-vue-data-tools": "^6.4.1",
+    "@progress/kendo-vue-inputs": "^6.4.1",
+    "@progress/kendo-vue-intl": "^6.4.1",
+    "@progress/kendo-vue-layout": "^6.4.1",
+    "bootstrap": "^5.3.7",
+    "sass": "^1.89.2",
     "vue": "^3.5.17"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "jest": "^30.0.4",
+    "jest-environment-jsdom": "^30.0.4",
     "vite": "^7.0.0",
     "vite-plugin-vue-devtools": "^7.7.7"
   }
