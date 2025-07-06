@@ -3,16 +3,12 @@ import { ref } from 'vue'
 import Navbar from './components/Navbar.vue'
 import Dashboard from './components/Dashboard.vue'
 import Patients from './components/Patients.vue'
-import MealPlans from './components/MealPlans.vue'
-import NutritionCalculator from './components/NutritionCalculator.vue'
 
 const currentView = ref('dashboard')
 
 const views = {
   dashboard: Dashboard,
-  patients: Patients,
-  mealPlans: MealPlans,
-  calculator: NutritionCalculator
+  patients: Patients
 }
 
 const handleViewChange = (view) => {
