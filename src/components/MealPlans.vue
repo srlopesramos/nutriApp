@@ -3,10 +3,14 @@ import { ref, onMounted } from 'vue'
 import { Button } from '@progress/kendo-vue-buttons'
 import { Input } from '@progress/kendo-vue-inputs'
 import { Card, CardBody, CardTitle } from '@progress/kendo-vue-layout'
+import MealPlanModal from './MealPlanModal.vue'
 
 const mealPlans = ref([])
 const showAddForm = ref(false)
 const selectedPlan = ref(null)
+const showMealPlanModal = ref(false)
+const editingMealPlan = ref(null)
+const patients = ref([])
 
 const newMealPlan = ref({
   name: '',
@@ -22,6 +26,25 @@ const newMealPlan = ref({
 const mealTypes = ['Café da manhã', 'Lanche da manhã', 'Almoço', 'Lanche da tarde', 'Jantar', 'Ceia']
 
 onMounted(() => {
+  // Simular dados de pacientes
+  patients.value = [
+    {
+      id: 1,
+      name: 'Maria Silva',
+      email: 'maria.silva@email.com'
+    },
+    {
+      id: 2,
+      name: 'João Santos',
+      email: 'joao.santos@email.com'
+    },
+    {
+      id: 3,
+      name: 'Ana Costa',
+      email: 'ana.costa@email.com'
+    }
+  ]
+
   // Simular dados de planos alimentares
   mealPlans.value = [
     {
@@ -99,6 +122,35 @@ const addMealPlan = () => {
   showAddForm.value = false
 }
 
+const openMealPlanModal = (plan = null) => {
+  editingMealPlan.value = plan
+  showMealPlanModal.value = true
+}
+
+const saveMealPlan = (mealPlanData) => {
+  if (editingMealPlan.value) {
+    // Editar plano existente
+    const index = mealPlans.value.findIndex(p => p.id === editingMealPlan.value.id)
+    if (index !== -1) {
+      mealPlans.value[index] = { ...mealPlans.value[index], ...mealPlanData }
+    }
+  } else {
+    // Adicionar novo plano
+    const newPlan = {
+      ...mealPlanData,
+      id: Date.now(),
+      status: 'Ativo',
+      createdAt: new Date().toISOString().split('T')[0]
+    }
+    mealPlans.value.push(newPlan)
+  }
+}
+
+const closeMealPlanModal = () => {
+  showMealPlanModal.value = false
+  editingMealPlan.value = null
+}
+
 const deleteMealPlan = (id) => {
   mealPlans.value = mealPlans.value.filter(plan => plan.id !== id)
 }
@@ -122,7 +174,7 @@ const closePlanView = () => {
       </div>
       <Button
         theme-color="primary"
-        @click="showAddForm = true"
+        @click="openMealPlanModal()"
         class="bg-green-600 hover:bg-green-700"
       >
         Novo Plano
@@ -186,6 +238,7 @@ const closePlanView = () => {
                 theme-color="primary"
                 fill-mode="flat"
                 size="small"
+                @click="openMealPlanModal(plan)"
                 class="text-green-600 hover:bg-green-50"
               >
                 Editar
@@ -355,6 +408,15 @@ const closePlanView = () => {
         </div>
       </div>
     </div>
+
+    <!-- Modal para criar/editar plano alimentar -->
+    <MealPlanModal
+      :visible="showMealPlanModal"
+      :meal-plan="editingMealPlan"
+      :patients="patients"
+      @save="saveMealPlan"
+      @close="closeMealPlanModal"
+    />
   </div>
 </template>
 
