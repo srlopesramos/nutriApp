@@ -56,6 +56,30 @@ onMounted(() => {
       goal: 'Manutenção',
       status: 'Inativo',
       lastVisit: '2024-01-10'
+    },
+    {
+      id: 4,
+      name: 'Pedro Oliveira',
+      email: 'pedro.oliveira@email.com',
+      phone: '(11) 66666-6666',
+      age: 31,
+      weight: 82.0,
+      height: 180,
+      goal: 'Perda de peso',
+      status: 'Ativo',
+      lastVisit: '2024-01-16'
+    },
+    {
+      id: 5,
+      name: 'Carla Ferreira',
+      email: 'carla.ferreira@email.com',
+      phone: '(11) 55555-5555',
+      age: 29,
+      weight: 55.0,
+      height: 158,
+      goal: 'Ganho de massa',
+      status: 'Ativo',
+      lastVisit: '2024-01-13'
     }
   ]
 })
@@ -128,80 +152,110 @@ const deletePatient = (id) => {
       </div>
     </div>
 
-    <!-- Lista de pacientes -->
-    <div class="grid gap-4">
-      <Card v-for="patient in filteredPatients" :key="patient.id" class="bg-white shadow-md">
-        <CardBody class="p-6">
-          <div class="flex justify-between items-start">
-            <div class="flex-1">
-              <div class="flex items-center space-x-3 mb-2">
-                <h3 class="text-lg font-semibold text-gray-900">{{ patient.name }}</h3>
-                <span :class="[
-                  'px-2 py-1 rounded-full text-xs font-medium',
-                  patient.status === 'Ativo' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                ]">
-                  {{ patient.status }}
-                </span>
-              </div>
-              
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-                <div>
-                  <span class="text-gray-600">Email:</span>
-                  <p class="font-medium">{{ patient.email }}</p>
-                </div>
-                <div>
-                  <span class="text-gray-600">Telefone:</span>
-                  <p class="font-medium">{{ patient.phone }}</p>
-                </div>
-                <div>
-                  <span class="text-gray-600">Idade:</span>
-                  <p class="font-medium">{{ patient.age }} anos</p>
-                </div>
-                <div>
-                  <span class="text-gray-600">Objetivo:</span>
-                  <p class="font-medium">{{ patient.goal }}</p>
-                </div>
-              </div>
-              
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-sm">
-                <div>
-                  <span class="text-gray-600">Peso:</span>
-                  <p class="font-medium">{{ patient.weight }} kg</p>
-                </div>
-                <div>
-                  <span class="text-gray-600">Altura:</span>
-                  <p class="font-medium">{{ patient.height }} cm</p>
-                </div>
-                <div>
-                  <span class="text-gray-600">Última visita:</span>
-                  <p class="font-medium">{{ patient.lastVisit }}</p>
-                </div>
-              </div>
-            </div>
-            
-            <div class="flex space-x-2 ml-4">
-              <Button
-                theme-color="primary"
-                fill-mode="flat"
-                size="small"
-                class="text-blue-600 hover:bg-blue-50"
-              >
-                Editar
-              </Button>
-              <Button
-                theme-color="error"
-                fill-mode="flat"
-                size="small"
-                @click="deletePatient(patient.id)"
-                class="text-red-600 hover:bg-red-50"
-              >
-                Excluir
-              </Button>
-            </div>
-          </div>
-        </CardBody>
-      </Card>
-    </div>
+    <!-- Grid responsivo de pacientes -->
+    <Card class="bg-white shadow-md">
+      <CardBody class="p-0">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Paciente
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                  Contato
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
+                  Dados Físicos
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                  Objetivo
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
+                  Última Visita
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Ações
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr v-for="patient in filteredPatients" :key="patient.id" class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 h-10 w-10">
+                      <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
+                        <span class="text-sm font-medium text-green-800">
+                          {{ patient.name.split(' ').map(n => n[0]).join('').toUpperCase() }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="ml-4">
+                      <div class="text-sm font-medium text-gray-900">{{ patient.name }}</div>
+                      <div class="text-sm text-gray-500">{{ patient.age }} anos</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
+                  <div class="text-sm text-gray-900">{{ patient.email }}</div>
+                  <div class="text-sm text-gray-500">{{ patient.phone }}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap hidden lg:table-cell">
+                  <div class="text-sm text-gray-900">{{ patient.weight }} kg</div>
+                  <div class="text-sm text-gray-500">{{ patient.height }} cm</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
+                  <span class="text-sm text-gray-900">{{ patient.goal }}</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap hidden lg:table-cell">
+                  <div class="text-sm text-gray-900">{{ patient.lastVisit }}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span :class="[
+                    'px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full',
+                    patient.status === 'Ativo' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                  ]">
+                    {{ patient.status }}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <div class="flex space-x-2">
+                    <Button
+                      theme-color="primary"
+                      fill-mode="flat"
+                      size="small"
+                      class="text-blue-600 hover:bg-blue-50"
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      theme-color="error"
+                      fill-mode="flat"
+                      size="small"
+                      @click="deletePatient(patient.id)"
+                      class="text-red-600 hover:bg-red-50"
+                    >
+                      Excluir
+                    </Button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Mensagem quando não há pacientes -->
+        <div v-if="filteredPatients.length === 0" class="text-center py-8">
+          <svg class="w-12 h-12 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+          <p class="text-gray-500">Nenhum paciente encontrado</p>
+        </div>
+      </CardBody>
+    </Card>
 
     <!-- Modal para adicionar paciente -->
     <div v-if="showAddForm" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
