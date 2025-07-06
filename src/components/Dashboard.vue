@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { Card, CardBody, CardTitle } from '@progress/kendo-vue-layout'
+import { dashboardService, initializeData } from '../services/csvService.js'
 
 // Definir emits para navegação
 const emit = defineEmits(['change-view'])
@@ -19,30 +20,16 @@ const stats = ref({
 const recentPatients = ref([])
 const pollingInterval = ref(null)
 
-// Simular dados que seriam atualizados via WebSocket ou API
+// Carregar dados do serviço CSV
 const fetchDashboardData = () => {
-  // Simular dados carregados com variações para demonstrar atualizações dinâmicas
-  const baseStats = {
-    totalPatients: 45 + Math.floor(Math.random() * 5),
-    activePlans: 32 + Math.floor(Math.random() * 3),
-    consultationsToday: 8 + Math.floor(Math.random() * 2),
-    averageWeightLoss: 2.3 + (Math.random() * 0.4 - 0.2),
-    totalCalories: 125000 + Math.floor(Math.random() * 5000),
-    totalProtein: 8500 + Math.floor(Math.random() * 200),
-    totalCarbs: 12000 + Math.floor(Math.random() * 300),
-    totalFat: 4200 + Math.floor(Math.random() * 150)
-  }
+  // Inicializar dados se necessário
+  initializeData()
   
-  stats.value = {
-    ...baseStats,
-    averageWeightLoss: parseFloat(baseStats.averageWeightLoss.toFixed(1))
-  }
+  // Buscar estatísticas do dashboard
+  stats.value = dashboardService.getDashboardStats()
   
-  recentPatients.value = [
-    { id: 1, name: 'Maria Silva', lastVisit: '2024-01-15', progress: '+1.2kg' },
-    { id: 2, name: 'João Santos', lastVisit: '2024-01-14', progress: '-0.8kg' },
-    { id: 3, name: 'Ana Costa', lastVisit: '2024-01-13', progress: '-1.5kg' }
-  ]
+  // Buscar pacientes recentes
+  recentPatients.value = dashboardService.getRecentPatients()
 }
 
 onMounted(() => {

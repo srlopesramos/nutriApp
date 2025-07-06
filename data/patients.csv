@@ -1,0 +1,6 @@
+id,name,email,phone,age,gender,weight,height,bmi,goal,notes,created_at,last_visit
+1,Maria Silva,maria.silva@email.com,(11) 99999-1111,28,F,65.5,1.65,24.0,Perder peso,Primeira consulta,2024-01-10,2024-01-15
+2,João Santos,joao.santos@email.com,(11) 99999-2222,35,M,78.2,1.75,25.5,Ganhar massa muscular,Atleta amador,2024-01-12,2024-01-14
+3,Ana Costa,ana.costa@email.com,(11) 99999-3333,42,F,58.8,1.60,23.0,Manter peso,Vegetariana,2024-01-13,2024-01-13
+4,Pedro Oliveira,pedro.oliveira@email.com,(11) 99999-4444,31,M,85.0,1.78,26.8,Perder peso,Hipertenso,2024-01-14,2024-01-16
+5,Carla Ferreira,carla.ferreira@email.com,(11) 99999-5555,26,F,52.3,1.58,20.9,Ganhar peso,Subnutrida,2024-01-15,2024-01-17 

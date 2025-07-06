@@ -4,6 +4,7 @@ import { Button } from '@progress/kendo-vue-buttons'
 import { Input } from '@progress/kendo-vue-inputs'
 import { Card, CardBody, CardTitle } from '@progress/kendo-vue-layout'
 import PatientDetail from './PatientDetail.vue'
+import { patientService, initializeData } from '../services/csvService.js'
 
 const patients = ref([])
 const searchTerm = ref('')
@@ -22,70 +23,14 @@ const newPatient = ref({
 })
 
 onMounted(() => {
-  // Simular dados de pacientes
-  patients.value = [
-    {
-      id: 1,
-      name: 'Maria Silva',
-      email: 'maria.silva@email.com',
-      phone: '(11) 99999-9999',
-      age: 28,
-      weight: 65.5,
-      height: 165,
-      goal: 'Perda de peso',
-      status: 'Ativo',
-      lastVisit: '2024-01-15'
-    },
-    {
-      id: 2,
-      name: 'João Santos',
-      email: 'joao.santos@email.com',
-      phone: '(11) 88888-8888',
-      age: 35,
-      weight: 78.2,
-      height: 175,
-      goal: 'Ganho de massa',
-      status: 'Ativo',
-      lastVisit: '2024-01-14'
-    },
-    {
-      id: 3,
-      name: 'Ana Costa',
-      email: 'ana.costa@email.com',
-      phone: '(11) 77777-7777',
-      age: 42,
-      weight: 58.0,
-      height: 160,
-      goal: 'Manutenção',
-      status: 'Inativo',
-      lastVisit: '2024-01-10'
-    },
-    {
-      id: 4,
-      name: 'Pedro Oliveira',
-      email: 'pedro.oliveira@email.com',
-      phone: '(11) 66666-6666',
-      age: 31,
-      weight: 82.0,
-      height: 180,
-      goal: 'Perda de peso',
-      status: 'Ativo',
-      lastVisit: '2024-01-16'
-    },
-    {
-      id: 5,
-      name: 'Carla Ferreira',
-      email: 'carla.ferreira@email.com',
-      phone: '(11) 55555-5555',
-      age: 29,
-      weight: 55.0,
-      height: 158,
-      goal: 'Ganho de massa',
-      status: 'Ativo',
-      lastVisit: '2024-01-13'
-    }
-  ]
+  // Inicializar dados do CSV
+  initializeData()
+  loadPatients()
 })
+
+const loadPatients = () => {
+  patients.value = patientService.getAllPatients()
+}
 
 const filteredPatients = computed(() => {
   if (!searchTerm.value) return patients.value
@@ -96,13 +41,28 @@ const filteredPatients = computed(() => {
 })
 
 const addPatient = () => {
-  const patient = {
-    id: patients.value.length + 1,
-    ...newPatient.value,
-    status: 'Ativo',
-    lastVisit: new Date().toISOString().split('T')[0]
+  // Validar dados obrigatórios
+  if (!newPatient.value.name || !newPatient.value.email) {
+    alert('Nome e email são obrigatórios!')
+    return
   }
-  patients.value.push(patient)
+
+  // Adicionar paciente usando o serviço
+  const patient = patientService.addPatient({
+    name: newPatient.value.name,
+    email: newPatient.value.email,
+    phone: newPatient.value.phone,
+    age: parseInt(newPatient.value.age) || 0,
+    gender: 'N/A',
+    weight: parseFloat(newPatient.value.weight) || 0,
+    height: parseFloat(newPatient.value.height) || 0,
+    bmi: 0,
+    goal: newPatient.value.goal,
+    notes: ''
+  })
+  
+  // Recarregar lista
+  loadPatients()
   
   // Limpar formulário
   newPatient.value = {
@@ -118,7 +78,10 @@ const addPatient = () => {
 }
 
 const deletePatient = (id) => {
-  patients.value = patients.value.filter(p => p.id !== id)
+  if (confirm('Tem certeza que deseja excluir este paciente?')) {
+    patientService.deletePatient(id)
+    loadPatients()
+  }
 }
 
 const viewPatientDetail = (patient) => {

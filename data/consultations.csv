@@ -1,0 +1,6 @@
+id,patient_id,patient_name,date,weight,progress,notes,next_appointment
+1,1,Maria Silva,2024-01-15,65.5,+0.5kg,Primeira consulta - paciente motivada,2024-01-22
+2,2,João Santos,2024-01-14,78.2,-0.8kg,Seguiu o plano corretamente,2024-01-21
+3,3,Ana Costa,2024-01-13,58.8,0.0kg,Manteve o peso estável,2024-01-20
+4,4,Pedro Oliveira,2024-01-16,85.0,-1.2kg,Boa aderência ao plano,2024-01-23
+5,5,Carla Ferreira,2024-01-17,52.3,+0.3kg,Começou a ganhar peso,2024-01-24 
