@@ -48,7 +48,7 @@ const navigateTo = (view) => {
               :class="[
                 'clickButton block w-full text-left px-5 py-3 text-sm transition-colors whitespace-nowrap',
                 activeView === 'dashboard'
-                  ? 'text-green-700 dark:text-green-300'
+                  ? 'text-green-700 dark:text-green-300 active'
                   : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
               ]"
             >
@@ -60,7 +60,7 @@ const navigateTo = (view) => {
               :class="[
                 'clickButton block w-full text-left px-5 py-3 text-sm transition-colors whitespace-nowrap',
                 activeView === 'patients'
-                  ? 'text-green-700 dark:text-green-300'
+                  ? 'text-green-700 dark:text-green-300 active'
                   : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
               ]"
             >
@@ -72,7 +72,7 @@ const navigateTo = (view) => {
               :class="[
                 'clickButton block w-full text-left px-5 py-3 text-sm transition-colors whitespace-nowrap',
                 activeView === 'mealPlans'
-                  ? 'text-green-700 dark:text-green-300'
+                  ? 'text-green-700 dark:text-green-300 active'
                   : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
               ]"
             >
@@ -84,7 +84,7 @@ const navigateTo = (view) => {
               :class="[
                 'clickButton block w-full text-left px-5 py-3 text-sm transition-colors whitespace-nowrap',
                 activeView === 'calculator'
-                  ? 'text-green-700 dark:text-green-300'
+                  ? 'text-green-700 dark:text-green-300 active'
                   : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
               ]"
             >
@@ -105,7 +105,7 @@ const navigateTo = (view) => {
             :class="[
               'px-3 py-2 rounded-md text-sm font-medium transition-colors',
               activeView === 'dashboard'
-                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
+                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 active'
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
             ]"
           >
@@ -116,7 +116,7 @@ const navigateTo = (view) => {
             :class="[
               'px-3 py-2 rounded-md text-sm font-medium transition-colors',
               activeView === 'patients'
-                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
+                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 active'
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
             ]"
           >
@@ -127,7 +127,7 @@ const navigateTo = (view) => {
             :class="[
               'px-3 py-2 rounded-md text-sm font-medium transition-colors',
               activeView === 'mealPlans'
-                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
+                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 active'
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
             ]"
           >
@@ -138,7 +138,7 @@ const navigateTo = (view) => {
             :class="[
               'px-3 py-2 rounded-md text-sm font-medium transition-colors',
               activeView === 'calculator'
-                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
+                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 active'
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
             ]"
           >
@@ -182,8 +182,7 @@ const navigateTo = (view) => {
     .clickButton{
       margin-bottom: 5px;
       border-radius: 0;
-      border: none;
-      background: none;
+      color: #fff;
       cursor: pointer;
       text-decoration: none;
       &:hover, &.active {
@@ -193,24 +192,4 @@ const navigateTo = (view) => {
   }
 }
 
-
-//// Estilos específicos para o menu mobile
-//.menu + div {
-//  min-width: 224px; // w-56 = 14rem = 224px
-//
-//  button {
-//    border-radius: 0;
-//    margin: 0;
-//
-//    &:first-child {
-//      border-top-left-radius: 0.375rem;
-//      border-top-right-radius: 0.375rem;
-//    }
-//
-//    &:last-child {
-//      border-bottom-left-radius: 0.375rem;
-//      border-bottom-right-radius: 0.375rem;
-//    }
-//  }
-//}
 </style> 
