@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import { Button } from '@progress/kendo-vue-buttons'
 import { useTheme } from '../composables/useTheme'
 
@@ -12,6 +13,16 @@ const props = defineProps({
 const emit = defineEmits(['change-view'])
 
 const { isDark, toggleTheme } = useTheme()
+const showMobileMenu = ref(false)
+
+const toggleMobileMenu = () => {
+  showMobileMenu.value = !showMobileMenu.value
+}
+
+const navigateTo = (view) => {
+  emit('change-view', view)
+  showMobileMenu.value = false
+}
 </script>
 
 <template>
@@ -26,7 +37,7 @@ const { isDark, toggleTheme } = useTheme()
           <h1 class="text-xl font-bold text-gray-800 dark:text-white">NutriApp</h1>
         </div>
 
-        <!-- Links de navegação -->
+        <!-- Links de navegação desktop -->
         <div class="hidden md:flex space-x-8">
           <button
             @click="$emit('change-view', 'dashboard')"
@@ -91,15 +102,63 @@ const { isDark, toggleTheme } = useTheme()
           </button>
 
           <!-- Menu mobile -->
-          <div class="md:hidden">
-            <Button
-              theme-color="primary"
-              fill-mode="flat"
-              size="small"
-              @click="$emit('change-view', 'dashboard')"
+          <div class="md:hidden relative">
+            <button
+              @click="toggleMobileMenu"
+              class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
             >
-              Menu
-            </Button>
+              <svg class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+
+            <!-- Dropdown menu mobile -->
+            <div v-if="showMobileMenu" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700">
+              <button
+                @click="navigateTo('dashboard')"
+                :class="[
+                  'block w-full text-left px-4 py-2 text-sm transition-colors',
+                  activeView === 'dashboard'
+                    ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                ]"
+              >
+                Dashboard
+              </button>
+              <button
+                @click="navigateTo('patients')"
+                :class="[
+                  'block w-full text-left px-4 py-2 text-sm transition-colors',
+                  activeView === 'patients'
+                    ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                ]"
+              >
+                Pacientes
+              </button>
+              <button
+                @click="navigateTo('mealPlans')"
+                :class="[
+                  'block w-full text-left px-4 py-2 text-sm transition-colors',
+                  activeView === 'mealPlans'
+                    ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                ]"
+              >
+                Planos Alimentares
+              </button>
+              <button
+                @click="navigateTo('calculator')"
+                :class="[
+                  'block w-full text-left px-4 py-2 text-sm transition-colors',
+                  activeView === 'calculator'
+                    ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                ]"
+              >
+                Calculadora
+              </button>
+            </div>
           </div>
         </div>
       </div>
