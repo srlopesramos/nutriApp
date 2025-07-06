@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { Card, CardBody, CardTitle } from '@progress/kendo-vue-layout'
 import { dashboardService, initializeData, patientService } from '../services/csvService.js'
 import PatientModal from './PatientModal.vue'
+import CalculatorModal from './CalculatorModal.vue'
 
 // Definir emits para navegação
 const emit = defineEmits(['change-view'])
@@ -21,6 +22,7 @@ const stats = ref({
 const recentPatients = ref([])
 const pollingInterval = ref(null)
 const showPatientModal = ref(false)
+const showCalculatorModal = ref(false)
 
 // Carregar dados do serviço CSV
 const fetchDashboardData = () => {
@@ -65,14 +67,6 @@ const navigateToPatients = () => {
   emit('change-view', 'patients')
 }
 
-const navigateToMealPlans = () => {
-  emit('change-view', 'mealPlans')
-}
-
-const navigateToCalculator = () => {
-  emit('change-view', 'calculator')
-}
-
 // Funções do modal
 const openPatientModal = () => {
   console.log('Dashboard: Abrindo modal de paciente')
@@ -84,6 +78,15 @@ const closePatientModal = () => {
   showPatientModal.value = false
 }
 
+const openCalculatorModal = () => {
+  console.log('Dashboard: Abrindo modal da calculadora')
+  showCalculatorModal.value = true
+}
+
+const closeCalculatorModal = () => {
+  showCalculatorModal.value = false
+}
+
 const savePatient = (patientData) => {
   console.log('Dashboard recebeu dados do paciente:', patientData)
   patientService.addPatient(patientData)
@@ -93,10 +96,6 @@ const savePatient = (patientData) => {
 
 <template>
   <div class="dashboard-container">
-    <!-- Debug info -->
-    <div style="position: fixed; top: 10px; left: 10px; background: red; color: white; padding: 10px; z-index: 10000;">
-      Dashboard carregado - Stats: {{ stats.totalPatients }} - showPatientModal: {{ showPatientModal }}
-    </div>
     
     <!-- Header do Dashboard -->
     <div class="dashboard-header">
@@ -211,19 +210,7 @@ const savePatient = (patientData) => {
           </div>
         </button>
 
-        <button class="action-button action-yellow" @click="navigateToMealPlans">
-          <div class="action-icon">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
-          </div>
-          <div class="action-text">
-            <span class="action-title">Planos Alimentares</span>
-            <p class="action-description">Criar e gerenciar planos</p>
-          </div>
-        </button>
-
-        <button class="action-button action-purple" @click="navigateToCalculator">
+        <button class="action-button action-purple" @click="openCalculatorModal">
           <div class="action-icon">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
@@ -267,10 +254,11 @@ const savePatient = (patientData) => {
       @save="savePatient"
     />
     
-    <!-- Debug info -->
-    <div style="position: fixed; bottom: 10px; right: 10px; background: blue; color: white; padding: 10px; z-index: 10000;">
-      showPatientModal: {{ showPatientModal }} - Recent Patients: {{ recentPatients.length }}
-    </div>
+    <!-- Modal da Calculadora -->
+    <CalculatorModal
+      :show="showCalculatorModal"
+      @close="closeCalculatorModal"
+    />
   </div>
 </template>
 
