@@ -3,15 +3,25 @@
 @tailwind utilities;
 
 /* Custom styles */
+html {
+  transition: background-color 0.3s ease;
+}
+
+.dark html {
+  background-color: #111827;
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   color: #333;
   transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: #f8fafc;
 }
 
 .dark body {
   color: #e5e7eb;
+  background-color: #111827;
 }
 
 .btn-primary {

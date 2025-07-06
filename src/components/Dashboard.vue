@@ -267,11 +267,6 @@ const savePatient = (patientData) => {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  transition: background-color 0.3s ease;
-}
-
-.dark .dashboard-container {
-  background: #111827;
 }
 
 .dashboard-header {
