@@ -399,60 +399,95 @@ export const consultationService = {
 export const dashboardService = {
   // Buscar estatísticas do dashboard
   getDashboardStats() {
-    const totalPatients = patients.value.length
-    const activePlans = mealPlans.value.filter(plan => plan.status === 'active').length
-    const consultationsToday = consultations.value.filter(c => c.date === new Date().toISOString().split('T')[0]).length
-    
-    // Calcular perda média de peso
-    const weightChanges = consultations.value
-      .map(c => parseFloat(c.progress.replace(/[^0-9.-]/g, '')))
-      .filter(change => !isNaN(change))
-    
-    const averageWeightLoss = weightChanges.length > 0 
-      ? (weightChanges.reduce((sum, change) => sum + change, 0) / weightChanges.length).toFixed(1)
-      : 0
+    try {
+      console.log('getDashboardStats: patients.value =', patients.value)
+      console.log('getDashboardStats: mealPlans.value =', mealPlans.value)
+      console.log('getDashboardStats: consultations.value =', consultations.value)
+      
+      const totalPatients = patients.value.length
+      const activePlans = mealPlans.value.filter(plan => plan.status === 'active').length
+      const consultationsToday = consultations.value.filter(c => c.date === new Date().toISOString().split('T')[0]).length
+      
+      // Calcular perda média de peso
+      const weightChanges = consultations.value
+        .map(c => parseFloat(c.progress.replace(/[^0-9.-]/g, '')))
+        .filter(change => !isNaN(change))
+      
+      const averageWeightLoss = weightChanges.length > 0 
+        ? (weightChanges.reduce((sum, change) => sum + change, 0) / weightChanges.length).toFixed(1)
+        : 0
 
-    // Calcular totais de macronutrientes
-    const totalCalories = mealPlans.value.reduce((sum, plan) => sum + plan.calories, 0)
-    const totalProtein = mealPlans.value.reduce((sum, plan) => sum + plan.protein, 0)
-    const totalCarbs = mealPlans.value.reduce((sum, plan) => sum + plan.carbs, 0)
-    const totalFat = mealPlans.value.reduce((sum, plan) => sum + plan.fat, 0)
+      // Calcular totais de macronutrientes
+      const totalCalories = mealPlans.value.reduce((sum, plan) => sum + plan.calories, 0)
+      const totalProtein = mealPlans.value.reduce((sum, plan) => sum + plan.protein, 0)
+      const totalCarbs = mealPlans.value.reduce((sum, plan) => sum + plan.carbs, 0)
+      const totalFat = mealPlans.value.reduce((sum, plan) => sum + plan.fat, 0)
 
-    return {
-      totalPatients,
-      activePlans,
-      consultationsToday,
-      averageWeightLoss: parseFloat(averageWeightLoss),
-      totalCalories,
-      totalProtein,
-      totalCarbs,
-      totalFat
+      const stats = {
+        totalPatients,
+        activePlans,
+        consultationsToday,
+        averageWeightLoss: parseFloat(averageWeightLoss),
+        totalCalories,
+        totalProtein,
+        totalCarbs,
+        totalFat
+      }
+      
+      console.log('getDashboardStats: stats =', stats)
+      return stats
+    } catch (error) {
+      console.error('Erro em getDashboardStats:', error)
+      return {
+        totalPatients: 0,
+        activePlans: 0,
+        consultationsToday: 0,
+        averageWeightLoss: 0,
+        totalCalories: 0,
+        totalProtein: 0,
+        totalCarbs: 0,
+        totalFat: 0
+      }
     }
   },
 
   // Buscar pacientes recentes
   getRecentPatients() {
-    return patients.value
-      .sort((a, b) => new Date(b.last_visit) - new Date(a.last_visit))
-      .slice(0, 3)
-      .map(patient => {
-        const consultation = consultations.value
-          .filter(c => c.patient_id === patient.id)
-          .sort((a, b) => new Date(b.date) - new Date(a.date))[0]
-        
-        return {
-          id: patient.id,
-          name: patient.name,
-          lastVisit: patient.last_visit,
-          progress: consultation ? consultation.progress : '0.0kg'
-        }
-      })
+    try {
+      console.log('getRecentPatients: patients.value =', patients.value)
+      console.log('getRecentPatients: consultations.value =', consultations.value)
+      
+      return patients.value
+        .sort((a, b) => new Date(b.last_visit) - new Date(a.last_visit))
+        .slice(0, 3)
+        .map(patient => {
+          const consultation = consultations.value
+            .filter(c => c.patient_id === patient.id)
+            .sort((a, b) => new Date(b.date) - new Date(a.date))[0]
+          
+          return {
+            id: patient.id,
+            name: patient.name,
+            lastVisit: patient.last_visit,
+            progress: consultation ? consultation.progress : '0.0kg'
+          }
+        })
+    } catch (error) {
+      console.error('Erro em getRecentPatients:', error)
+      return []
+    }
   }
 }
 
 // Inicializar dados
 export const initializeData = () => {
-  patientService.loadFromCSV()
-  mealPlanService.loadFromCSV()
-  consultationService.loadFromCSV()
+  try {
+    console.log('initializeData: Iniciando...')
+    patientService.loadFromCSV()
+    mealPlanService.loadFromCSV()
+    consultationService.loadFromCSV()
+    console.log('initializeData: Concluído')
+  } catch (error) {
+    console.error('Erro em initializeData:', error)
+  }
 } 
