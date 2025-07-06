@@ -2,6 +2,9 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { Card, CardBody, CardTitle } from '@progress/kendo-vue-layout'
 
+// Definir emits para navegação
+const emit = defineEmits(['change-view'])
+
 const stats = ref({
   totalPatients: 0,
   activePlans: 0,
@@ -58,6 +61,19 @@ onUnmounted(() => {
     clearInterval(pollingInterval.value)
   }
 })
+
+// Funções de navegação
+const navigateToPatients = () => {
+  emit('change-view', 'patients')
+}
+
+const navigateToMealPlans = () => {
+  emit('change-view', 'mealPlans')
+}
+
+const navigateToCalculator = () => {
+  emit('change-view', 'calculator')
+}
 </script>
 
 <template>
@@ -220,7 +236,7 @@ onUnmounted(() => {
       <div class="bottom-card">
         <div class="card-header">
           <h3 class="card-title">Pacientes Recentes</h3>
-          <span class="card-link">Ver todos</span>
+          <span class="card-link" @click="navigateToPatients" style="cursor: pointer;">Ver todos</span>
         </div>
         <div class="patients-list">
           <div v-for="patient in recentPatients" :key="patient.id" class="patient-item">
@@ -245,7 +261,7 @@ onUnmounted(() => {
       <div class="bottom-card">
         <h3 class="card-title">Ações Rápidas</h3>
         <div class="actions-list">
-          <button class="action-button action-blue">
+          <button class="action-button action-blue" @click="navigateToPatients">
             <div class="action-icon">
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -257,7 +273,7 @@ onUnmounted(() => {
             </div>
           </button>
           
-          <button class="action-button action-green">
+          <button class="action-button action-green" @click="navigateToMealPlans">
             <div class="action-icon">
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -269,7 +285,7 @@ onUnmounted(() => {
             </div>
           </button>
           
-          <button class="action-button action-purple">
+          <button class="action-button action-purple" @click="navigateToCalculator">
             <div class="action-icon">
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -569,10 +585,15 @@ onUnmounted(() => {
   font-size: 0.875rem;
   color: #2563eb;
   cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 4px 8px;
+  border-radius: 6px;
 }
 
 .card-link:hover {
   text-decoration: underline;
+  background-color: rgba(37, 99, 235, 0.1);
+  transform: translateY(-1px);
 }
 
 /* Lista de pacientes */
