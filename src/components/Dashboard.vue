@@ -51,6 +51,7 @@ onUnmounted(() => {
 
 // Funções de navegação
 const navigateToPatients = () => {
+  console.log('Navegando para pacientes...')
   emit('change-view', 'patients')
 }
 

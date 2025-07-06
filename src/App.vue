@@ -14,14 +14,19 @@ const views = {
   mealPlans: MealPlans,
   calculator: NutritionCalculator
 }
+
+const handleViewChange = (view) => {
+  console.log('Mudando para view:', view)
+  currentView.value = view
+}
 </script>
 
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
-    <Navbar @change-view="currentView = $event" :active-view="currentView" />
+    <Navbar @change-view="handleViewChange" :active-view="currentView" />
     
     <main class="container mx-auto px-4 py-8">
-      <component :is="views[currentView]" />
+      <component :is="views[currentView]" @change-view="handleViewChange" />
     </main>
   </div>
 </template>
