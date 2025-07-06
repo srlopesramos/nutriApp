@@ -322,12 +322,21 @@ const savePatient = (patientData) => {
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s ease;
+}
+
+.dark .stat-card {
+  background: #1f2937;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
 .stat-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.dark .stat-card:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
 }
 
 .stat-content {
@@ -345,6 +354,11 @@ const savePatient = (patientData) => {
   color: #6b7280;
   margin: 0 0 8px 0;
   font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.dark .stat-label {
+  color: #9ca3af;
 }
 
 .stat-value {
@@ -352,6 +366,11 @@ const savePatient = (patientData) => {
   font-weight: 700;
   margin: 0 0 4px 0;
   color: #1f2937;
+  transition: color 0.3s ease;
+}
+
+.dark .stat-value {
+  color: #f9fafb;
 }
 
 .stat-change {
@@ -398,6 +417,12 @@ const savePatient = (patientData) => {
   padding: 24px;
   margin-bottom: 32px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark .actions-section {
+  background: #1f2937;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
 .card-title {
@@ -405,6 +430,11 @@ const savePatient = (patientData) => {
   font-weight: 600;
   color: #1f2937;
   margin: 0 0 20px 0;
+  transition: color 0.3s ease;
+}
+
+.dark .card-title {
+  color: #f9fafb;
 }
 
 .actions-list {
@@ -422,13 +452,21 @@ const savePatient = (patientData) => {
   border-radius: 12px;
   background: #f8fafc;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s, background-color 0.3s ease;
   text-align: left;
+}
+
+.dark .action-button {
+  background: #374151;
 }
 
 .action-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.dark .action-button:hover {
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.3);
 }
 
 .action-icon {
@@ -457,12 +495,22 @@ const savePatient = (patientData) => {
   font-weight: 600;
   color: #1f2937;
   margin-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+.dark .action-title {
+  color: #f9fafb;
 }
 
 .action-description {
   font-size: 0.875rem;
   color: #6b7280;
   margin: 0;
+  transition: color 0.3s ease;
+}
+
+.dark .action-description {
+  color: #9ca3af;
 }
 
 .action-blue .action-icon {
@@ -486,6 +534,12 @@ const savePatient = (patientData) => {
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark .recent-section {
+  background: #1f2937;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
 .section-header {

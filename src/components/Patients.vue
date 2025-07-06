@@ -321,6 +321,11 @@ const closePatientDetail = () => {
   padding: 24px;
   background: #f8fafc;
   min-height: 100vh;
+  transition: background-color 0.3s ease;
+}
+
+.dark .patients-container {
+  background: #111827;
 }
 
 /* Header da página */
@@ -330,6 +335,12 @@ const closePatientDetail = () => {
   padding: 24px;
   margin-bottom: 32px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark .patients-header {
+  background: #1f2937;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
 .header-content {
@@ -347,12 +358,25 @@ const closePatientDetail = () => {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  transition: background 0.3s ease;
+}
+
+.dark .header-text h1 {
+  background: linear-gradient(135deg, #f9fafb, #e5e7eb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .patients-subtitle {
   font-size: 1.125rem;
   color: #6b7280;
   margin: 0;
+  transition: color 0.3s ease;
+}
+
+.dark .patients-subtitle {
+  color: #9ca3af;
 }
 
 .header-actions {
@@ -421,12 +445,21 @@ const closePatientDetail = () => {
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s;
+  transition: all 0.2s, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark .stat-card {
+  background: #1f2937;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
 .stat-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.dark .stat-card:hover {
+  box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.4);
 }
 
 .stat-content {
@@ -444,6 +477,11 @@ const closePatientDetail = () => {
   color: #6b7280;
   margin: 0 0 8px 0;
   font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.dark .stat-label {
+  color: #9ca3af;
 }
 
 .stat-value {
@@ -451,6 +489,11 @@ const closePatientDetail = () => {
   font-weight: 700;
   color: #1f2937;
   margin: 0 0 4px 0;
+  transition: color 0.3s ease;
+}
+
+.dark .stat-value {
+  color: #f9fafb;
 }
 
 .stat-change {
@@ -499,6 +542,12 @@ const closePatientDetail = () => {
   padding: 24px;
   margin-bottom: 32px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark .search-section {
+  background: #1f2937;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
 .search-content {
@@ -529,12 +578,22 @@ const closePatientDetail = () => {
   border: 2px solid #e5e7eb;
   border-radius: 12px;
   font-size: 1rem;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark .search-input {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #e5e7eb;
 }
 
 .search-input:focus {
   outline: none;
   border-color: #3b82f6;
+}
+
+.dark .search-input:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .search-stats {
@@ -546,6 +605,11 @@ const closePatientDetail = () => {
   font-size: 0.875rem;
   color: #6b7280;
   font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.dark .search-count {
+  color: #9ca3af;
 }
 
 /* Seção de pacientes */
@@ -554,6 +618,12 @@ const closePatientDetail = () => {
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark .patients-section {
+  background: #1f2937;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
 .section-header {
@@ -568,6 +638,11 @@ const closePatientDetail = () => {
   font-weight: 600;
   color: #1f2937;
   margin: 0;
+  transition: color 0.3s ease;
+}
+
+.dark .card-title {
+  color: #f9fafb;
 }
 
 
@@ -584,13 +659,22 @@ const closePatientDetail = () => {
   border: 2px solid #f3f4f6;
   border-radius: 16px;
   padding: 24px;
-  transition: all 0.2s;
+  transition: all 0.2s, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dark .patient-card {
+  background: #374151;
+  border-color: #4b5563;
 }
 
 .patient-card:hover {
   border-color: #3b82f6;
   box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.1);
   transform: translateY(-2px);
+}
+
+.dark .patient-card:hover {
+  box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.2);
 }
 
 .patient-header {
@@ -645,6 +729,11 @@ const closePatientDetail = () => {
   font-weight: 600;
   color: #1f2937;
   margin: 0 0 8px 0;
+  transition: color 0.3s ease;
+}
+
+.dark .patient-name {
+  color: #f9fafb;
 }
 
 .patient-age,
@@ -653,6 +742,13 @@ const closePatientDetail = () => {
   font-size: 0.875rem;
   color: #6b7280;
   margin: 0 0 4px 0;
+  transition: color 0.3s ease;
+}
+
+.dark .patient-age,
+.dark .patient-email,
+.dark .patient-phone {
+  color: #9ca3af;
 }
 
 .patient-metrics {
@@ -663,6 +759,11 @@ const closePatientDetail = () => {
   padding: 16px;
   background: #f8fafc;
   border-radius: 12px;
+  transition: background-color 0.3s ease;
+}
+
+.dark .patient-metrics {
+  background: #4b5563;
 }
 
 .metric {
@@ -675,6 +776,11 @@ const closePatientDetail = () => {
   color: #6b7280;
   font-weight: 500;
   margin-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+.dark .metric-label {
+  color: #9ca3af;
 }
 
 .metric-value {
@@ -682,6 +788,11 @@ const closePatientDetail = () => {
   font-size: 0.875rem;
   color: #1f2937;
   font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.dark .metric-value {
+  color: #f9fafb;
 }
 
 .patient-actions {
