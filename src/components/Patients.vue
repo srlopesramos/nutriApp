@@ -3,10 +3,13 @@ import { ref, onMounted, computed } from 'vue'
 import { Button } from '@progress/kendo-vue-buttons'
 import { Input } from '@progress/kendo-vue-inputs'
 import { Card, CardBody, CardTitle } from '@progress/kendo-vue-layout'
+import PatientDetail from './PatientDetail.vue'
 
 const patients = ref([])
 const searchTerm = ref('')
 const showAddForm = ref(false)
+const showPatientDetail = ref(false)
+const selectedPatient = ref(null)
 
 const newPatient = ref({
   name: '',
@@ -116,6 +119,16 @@ const addPatient = () => {
 
 const deletePatient = (id) => {
   patients.value = patients.value.filter(p => p.id !== id)
+}
+
+const viewPatientDetail = (patient) => {
+  selectedPatient.value = patient
+  showPatientDetail.value = true
+}
+
+const closePatientDetail = () => {
+  showPatientDetail.value = false
+  selectedPatient.value = null
 }
 </script>
 
@@ -227,7 +240,16 @@ const deletePatient = (id) => {
                       theme-color="primary"
                       fill-mode="flat"
                       size="small"
+                      @click="viewPatientDetail(patient)"
                       class="text-blue-600 hover:bg-blue-50"
+                    >
+                      Detalhes
+                    </Button>
+                    <Button
+                      theme-color="primary"
+                      fill-mode="flat"
+                      size="small"
+                      class="text-green-600 hover:bg-green-50"
                     >
                       Editar
                     </Button>
@@ -256,6 +278,13 @@ const deletePatient = (id) => {
         </div>
       </CardBody>
     </Card>
+
+    <!-- Modal de detalhes do paciente -->
+    <PatientDetail
+      :patient="selectedPatient"
+      :visible="showPatientDetail"
+      @close="closePatientDetail"
+    />
 
     <!-- Modal para adicionar paciente -->
     <div v-if="showAddForm" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
