@@ -66,30 +66,6 @@ const navigateTo = (view) => {
             >
               Pacientes
             </a>
-            <a
-              href="#"
-              @click.prevent="navigateTo('mealPlans')"
-              :class="[
-                'clickButton block w-full text-left px-5 py-3 text-sm transition-colors whitespace-nowrap',
-                activeView === 'mealPlans'
-                  ? 'text-green-700 dark:text-green-300 active'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-              ]"
-            >
-              Planos Alimentares
-            </a>
-            <a
-              href="#"
-              @click.prevent="navigateTo('calculator')"
-              :class="[
-                'clickButton block w-full text-left px-5 py-3 text-sm transition-colors whitespace-nowrap',
-                activeView === 'calculator'
-                  ? 'text-green-700 dark:text-green-300 active'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-              ]"
-            >
-              Calculadora
-            </a>
           </div>
         </div>
 
@@ -121,28 +97,6 @@ const navigateTo = (view) => {
             ]"
           >
             Pacientes
-          </button>
-          <button
-            @click="$emit('change-view', 'mealPlans')"
-            :class="[
-              'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-              activeView === 'mealPlans'
-                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 active'
-                : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
-            ]"
-          >
-            Planos Alimentares
-          </button>
-          <button
-            @click="$emit('change-view', 'calculator')"
-            :class="[
-              'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-              activeView === 'calculator'
-                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 active'
-                : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
-            ]"
-          >
-            Calculadora
           </button>
         </div>
 
