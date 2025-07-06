@@ -29,11 +29,72 @@ const navigateTo = (view) => {
   <nav class="bg-white dark:bg-gray-800 shadow-lg border-b border-gray-200 dark:border-gray-700 transition-colors">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center h-16">
-        <!-- Logo e título -->
-        <div class="flex items-center space-x-3">
-          <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-            <span class="text-white font-bold text-sm">N</span>
+        <!-- Menu mobile à esquerda -->
+        <div class="md:hidden relative menuBox">
+          <button
+            @click="toggleMobileMenu"
+            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors menu"
+          >
+            <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+            </svg>
+          </button>
+
+          <!-- Dropdown menu mobile -->
+          <div v-if="showMobileMenu" class="mobileMenu absolute left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-50 border border-gray-200 dark:border-gray-700">
+            <a
+              href="#"
+              @click.prevent="navigateTo('dashboard')"
+              :class="[
+                'clickButton block w-full text-left px-5 py-3 text-sm transition-colors whitespace-nowrap',
+                activeView === 'dashboard'
+                  ? 'text-green-700 dark:text-green-300'
+                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+              ]"
+            >
+              Dashboard
+            </a>
+            <a
+              href="#"
+              @click.prevent="navigateTo('patients')"
+              :class="[
+                'clickButton block w-full text-left px-5 py-3 text-sm transition-colors whitespace-nowrap',
+                activeView === 'patients'
+                  ? 'text-green-700 dark:text-green-300'
+                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+              ]"
+            >
+              Pacientes
+            </a>
+            <a
+              href="#"
+              @click.prevent="navigateTo('mealPlans')"
+              :class="[
+                'clickButton block w-full text-left px-5 py-3 text-sm transition-colors whitespace-nowrap',
+                activeView === 'mealPlans'
+                  ? 'text-green-700 dark:text-green-300'
+                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+              ]"
+            >
+              Planos Alimentares
+            </a>
+            <a
+              href="#"
+              @click.prevent="navigateTo('calculator')"
+              :class="[
+                'clickButton block w-full text-left px-5 py-3 text-sm transition-colors whitespace-nowrap',
+                activeView === 'calculator'
+                  ? 'text-green-700 dark:text-green-300'
+                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+              ]"
+            >
+              Calculadora
+            </a>
           </div>
+        </div>
+
+        <!-- Título centralizado -->
+        <div class="flex-1 flex justify-center">
           <h1 class="text-xl font-bold text-gray-800 dark:text-white">NutriApp</h1>
         </div>
 
@@ -85,87 +146,71 @@ const navigateTo = (view) => {
           </button>
         </div>
 
-        <!-- Toggle de tema e menu mobile -->
-        <div class="flex items-center space-x-4">
-          <!-- Toggle de tema -->
+        <!-- Toggle de tema à direita -->
+        <div class="flex items-center">
           <button
             @click="toggleTheme"
-            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors themeMode"
             :title="isDark ? 'Mudar para tema claro' : 'Mudar para tema escuro'"
           >
-            <svg v-if="isDark" class="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            <svg v-if="isDark" class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"/>
             </svg>
-            <svg v-else class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            <svg v-else class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/>
             </svg>
           </button>
-
-          <!-- Menu mobile -->
-          <div class="md:hidden relative">
-            <button
-              @click="toggleMobileMenu"
-              class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            >
-              <svg class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </button>
-
-            <!-- Dropdown menu mobile -->
-            <div v-if="showMobileMenu" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700">
-              <button
-                @click="navigateTo('dashboard')"
-                :class="[
-                  'block w-full text-left px-4 py-2 text-sm transition-colors',
-                  activeView === 'dashboard'
-                    ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                ]"
-              >
-                Dashboard
-              </button>
-              <button
-                @click="navigateTo('patients')"
-                :class="[
-                  'block w-full text-left px-4 py-2 text-sm transition-colors',
-                  activeView === 'patients'
-                    ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                ]"
-              >
-                Pacientes
-              </button>
-              <button
-                @click="navigateTo('mealPlans')"
-                :class="[
-                  'block w-full text-left px-4 py-2 text-sm transition-colors',
-                  activeView === 'mealPlans'
-                    ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                ]"
-              >
-                Planos Alimentares
-              </button>
-              <button
-                @click="navigateTo('calculator')"
-                :class="[
-                  'block w-full text-left px-4 py-2 text-sm transition-colors',
-                  activeView === 'calculator'
-                    ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                ]"
-              >
-                Calculadora
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </nav>
 </template>
 
-<style scoped>
-/* Estilos específicos do navbar se necessário */
+<style scoped lang="scss">
+.themeMode, .menu{
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.menuBox{
+  .mobileMenu{
+    background-color: #3b82f6;
+    padding: 3px;
+
+    .clickButton{
+      margin-bottom: 5px;
+      border-radius: 0;
+      border: none;
+      background: none;
+      cursor: pointer;
+      text-decoration: none;
+      &:hover, &.active {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+
+//// Estilos específicos para o menu mobile
+//.menu + div {
+//  min-width: 224px; // w-56 = 14rem = 224px
+//
+//  button {
+//    border-radius: 0;
+//    margin: 0;
+//
+//    &:first-child {
+//      border-top-left-radius: 0.375rem;
+//      border-top-right-radius: 0.375rem;
+//    }
+//
+//    &:last-child {
+//      border-bottom-left-radius: 0.375rem;
+//      border-bottom-right-radius: 0.375rem;
+//    }
+//  }
+//}
 </style> 
