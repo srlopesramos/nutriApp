@@ -17,7 +17,7 @@ const views = {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
     <Navbar @change-view="currentView = $event" :active-view="currentView" />
     
     <main class="container mx-auto px-4 py-8">
