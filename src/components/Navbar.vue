@@ -13,15 +13,9 @@ const props = defineProps({
 const emit = defineEmits(['change-view'])
 
 const { isDark, toggleTheme } = useTheme()
-const showMobileMenu = ref(false)
 
-const toggleMobileMenu = () => {
-  showMobileMenu.value = !showMobileMenu.value
-}
-
-const navigateTo = (view) => {
-  emit('change-view', view)
-  showMobileMenu.value = false
+const navigateToDashboard = () => {
+  emit('change-view', 'dashboard')
 }
 </script>
 
@@ -29,75 +23,25 @@ const navigateTo = (view) => {
   <nav class="bg-white dark:bg-gray-800 shadow-lg border-b border-gray-200 dark:border-gray-700 transition-colors">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center h-16">
-        <!-- Menu mobile à esquerda -->
-        <div class="md:hidden relative menuBox">
+        <!-- Botão voltar (apenas quando estiver em pacientes) -->
+        <div v-if="activeView === 'patients'" class="flex items-center">
           <button
-            @click="toggleMobileMenu"
-            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors menu"
+            @click="navigateToDashboard"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-gray-700 dark:text-gray-300"
           >
-            <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
+            <span class="font-medium">Voltar</span>
           </button>
-
-          <!-- Dropdown menu mobile -->
-          <div v-if="showMobileMenu" class="mobileMenu absolute left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-50 border border-gray-200 dark:border-gray-700">
-            <a
-              href="#"
-              @click.prevent="navigateTo('dashboard')"
-              :class="[
-                'clickButton block w-full text-left px-5 py-3 text-sm transition-colors whitespace-nowrap',
-                activeView === 'dashboard'
-                  ? 'text-green-700 dark:text-green-300 active'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-              ]"
-            >
-              Dashboard
-            </a>
-            <a
-              href="#"
-              @click.prevent="navigateTo('patients')"
-              :class="[
-                'clickButton block w-full text-left px-5 py-3 text-sm transition-colors whitespace-nowrap',
-                activeView === 'patients'
-                  ? 'text-green-700 dark:text-green-300 active'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-              ]"
-            >
-              Pacientes
-            </a>
-          </div>
         </div>
+
+        <!-- Espaçador quando não há botão voltar -->
+        <div v-else class="w-24"></div>
 
         <!-- Título centralizado -->
         <div class="flex-1 flex justify-center">
           <h1 class="text-xl font-bold text-gray-800 dark:text-white">NutriApp</h1>
-        </div>
-
-        <!-- Links de navegação desktop -->
-        <div class="hidden md:flex space-x-8">
-          <button
-            @click="$emit('change-view', 'dashboard')"
-            :class="[
-              'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-              activeView === 'dashboard'
-                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 active'
-                : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
-            ]"
-          >
-            Dashboard
-          </button>
-          <button
-            @click="$emit('change-view', 'patients')"
-            :class="[
-              'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-              activeView === 'patients'
-                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 active'
-                : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
-            ]"
-          >
-            Pacientes
-          </button>
         </div>
 
         <!-- Toggle de tema à direita -->
@@ -121,29 +65,9 @@ const navigateTo = (view) => {
 </template>
 
 <style scoped lang="scss">
-.themeMode, .menu{
+.themeMode {
   width: 30px;
   height: 30px;
   cursor: pointer;
-  margin-right: 10px;
 }
-
-.menuBox{
-  .mobileMenu{
-    background-color: #3b82f6;
-    padding: 3px;
-
-    .clickButton{
-      margin-bottom: 5px;
-      border-radius: 0;
-      color: #fff;
-      cursor: pointer;
-      text-decoration: none;
-      &:hover, &.active {
-        text-decoration: underline;
-      }
-    }
-  }
-}
-
 </style> 
