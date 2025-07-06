@@ -203,10 +203,6 @@ const closePatientDetail = () => {
     <div class="patients-section">
       <div class="section-header">
         <h3 class="card-title">Lista de Pacientes</h3>
-        <div class="view-options">
-          <button class="view-btn active">Cards</button>
-          <button class="view-btn">Tabela</button>
-        </div>
       </div>
 
       <!-- Grid de cards de pacientes -->
@@ -574,29 +570,7 @@ const closePatientDetail = () => {
   margin: 0;
 }
 
-.view-options {
-  display: flex;
-  gap: 8px;
-}
 
-.view-btn {
-  padding: 8px 16px;
-  border: 2px solid #e5e7eb;
-  background: white;
-  color: #6b7280;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.view-btn.active,
-.view-btn:hover {
-  border-color: #3b82f6;
-  color: #3b82f6;
-  background: #eff6ff;
-}
 
 /* Grid de pacientes */
 .patients-grid {
